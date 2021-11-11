@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Home from "./Pages/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Gallery from "./Pages/Gallery";
+import FreeComment from "./Pages/FreeComment";
+import PostDetail from "./Pages/PostDetail";
+import Login from "./Pages/Login";
+import GalleryUpload from "./Pages/GalleryUpload";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/gallery" exact>
+            <Gallery />
+          </Route>
+          <Route path="/freecomment" exact>
+            <FreeComment />
+          </Route>
+          <Route path="/freecomment/:id" exact>
+            <PostDetail />
+          </Route>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/galleryupload" exact>
+            <GalleryUpload />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
-
-export default App;
