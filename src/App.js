@@ -6,6 +6,7 @@ import FreeComment from "./Pages/FreeComment";
 import PostDetail from "./Pages/PostDetail";
 import Login from "./Pages/Login";
 import GalleryUpload from "./Pages/GalleryUpload";
+import FreeCommentUpload from "./Components/FreeCommentUpload";
 
 export default function App() {
   return (
@@ -29,6 +30,9 @@ export default function App() {
           </Route>
           <Route path="/galleryupload" exact>
             <GalleryUpload />
+          </Route>
+          <Route path="/freecomment/upload">
+            <FreeCommentUpload />
           </Route>
         </Switch>
       </Router>

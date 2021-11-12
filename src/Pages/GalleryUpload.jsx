@@ -6,6 +6,7 @@ import Baseline from "../Components/Baseline";
 import Navbar from "../Components/Navbar";
 import { useSelector } from "react-redux";
 import { userRequest } from "../requestApi";
+import { useHistory } from "react-router";
 
 const Container = styled.div``;
 
@@ -57,6 +58,7 @@ const LoadingBox = styled.div`
 `;
 
 export default function GalleryUpload() {
+  const history = useHistory();
   const [img, setImg] = useState();
   const [desc, setDesc] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +106,13 @@ export default function GalleryUpload() {
     setIsLoading(true);
     const res = await userRequest
       .post("photo/upload", params)
-      .then(() => loadingAnimationPromise.then(() => setIsLoading(false)));
+      .catch(() => history.push("/login"))
+      .then(() =>
+        loadingAnimationPromise.then(() => {
+          setIsLoading(false);
+          history.push("/gallery");
+        })
+      );
     console.log(res);
   };
 

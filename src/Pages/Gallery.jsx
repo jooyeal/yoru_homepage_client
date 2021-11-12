@@ -4,9 +4,9 @@ import Baseline from "../Components/Baseline";
 import ImageCard from "../Components/ImageCard";
 import Navbar from "../Components/Navbar";
 import { AddBox } from "@mui/icons-material";
-import { photoData } from "../data";
 import { useHistory } from "react-router";
 import { publicRequest } from "../requestApi";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -42,7 +42,7 @@ export default function Gallery() {
   const history = useHistory();
   const [photos, setPhotos] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     const getPhotos = async () => {
       const res = await publicRequest.get("photo/all");
@@ -61,7 +61,8 @@ export default function Gallery() {
         {isLoading && <LoadingBox>loading...</LoadingBox>}
         {photos?.map((p) => (
           <ImageCard
-            key={p.id}
+            id={p._id}
+            key={p._id}
             src={p.img}
             desc={p.desc}
             comments={p.comments}
@@ -70,10 +71,12 @@ export default function Gallery() {
         ))}
       </Wrapper>
       <FooterNavbar>
-        <AddBox
-          style={{ fontSize: "48px" }}
-          onClick={() => history.push("/galleryupload")}
-        />
+        {currentUser && (
+          <AddBox
+            style={{ fontSize: "48px" }}
+            onClick={() => history.push("/galleryupload")}
+          />
+        )}
       </FooterNavbar>
     </Container>
   );
