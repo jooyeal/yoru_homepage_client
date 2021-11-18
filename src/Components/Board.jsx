@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { AddBox } from "@mui/icons-material";
+import { publicRequest } from "../requestApi";
 
 const Container = styled.div``;
 
@@ -9,6 +10,7 @@ const Top = styled.div`
   display: flex;
   top: 5rem;
   position: fixed;
+  align-items: center;
   background-color: #fff;
   width: 100vw;
   height: 12vh;
@@ -18,24 +20,33 @@ const Top = styled.div`
 `;
 
 const Id = styled.div`
-  flex: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 10vw;
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 `;
 
 const Title = styled.div`
-  flex: 5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50vw;
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 `;
 
 const User = styled.div`
-  flex: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 40vw;
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 `;
 
 const Main = styled.div`
@@ -44,10 +55,12 @@ const Main = styled.div`
 
 const Post = styled.div`
   display: flex;
-  height: 20vh;
+  align-items: center;
+  height: 10vh;
   font-size: 24px;
   font-weight: 500;
   border-bottom: 0.3px solid #dfdddd;
+  gap: 10px;
 `;
 
 const FooterNavbar = styled.div`
@@ -61,33 +74,55 @@ const FooterNavbar = styled.div`
   align-items: center;
 `;
 
-export default function Board({ postData }) {
+const Nothing = styled.div`
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+`;
+
+export default function Board() {
+  const [posts, setPosts] = useState([]);
   const history = useHistory();
 
   const onClickToDetail = (id) => {
     history.push(`/freecomment/${id}`);
   };
 
+  useEffect(() => {
+    const getPost = async () => {
+      const res = await publicRequest.get("post/");
+      setPosts(res.data);
+    };
+    getPost();
+  }, []);
   return (
     <Container>
       <Top>
-        <Id>ID</Id>
-        <Title>TITLE</Title>
-        <User>USER</User>
+        <Id>NO</Id>
+        <Title type="bar">TITLE</Title>
+        <User type="bar">USER</User>
       </Top>
-      <Main>
-        {postData.map((p) => (
-          <Post key={p.id} onClick={() => onClickToDetail(p.id)}>
-            <Id>{p.id}</Id>
-            <Title>{p.title}</Title>
-            <User>{p.userId}</User>
-          </Post>
-        ))}
-      </Main>
+      {posts.length !== 0 ? (
+        <Main>
+          {posts.map((p, i) => (
+            <Post key={p._id} onClick={() => onClickToDetail(p._id)}>
+              <Id>{i + 1}</Id>
+              <Title>{p.title}</Title>
+              <User>{p.userId}</User>
+            </Post>
+          ))}
+        </Main>
+      ) : (
+        <Nothing>Post does not exist</Nothing>
+      )}
       <FooterNavbar>
         <AddBox
           style={{ fontSize: "48px" }}
-          onClick={() => history.push("/freecomment/upload")}
+          onClick={() => history.push("/upload/freecomment")}
         />
       </FooterNavbar>
     </Container>

@@ -12,7 +12,7 @@ export default function FreeComment() {
     <Container>
       <Navbar />
       <Baseline />
-      <Board postData={postData} />
+      <Board />
     </Container>
   );
 }
