@@ -29,6 +29,8 @@ const FooterNavbar = styled.div`
 `;
 
 const LoadingBox = styled.div`
+  z-index: 100;
+  position: fixed;
   width: 100vw;
   height: 90vh;
   display: flex;
@@ -53,20 +55,29 @@ export default function Gallery() {
     getPhotos();
   }, []);
 
+  const onSubmitComment = async (id, username, comment) => {
+    await publicRequest.put(`photo/addcomment/${id}`, {
+      username,
+      comment,
+    });
+    const res = await publicRequest.get("photo/all");
+    setPhotos(res.data);
+  };
   return (
     <Container>
       <Navbar />
       <Baseline />
       <Wrapper>
         {isLoading && <LoadingBox>loading...</LoadingBox>}
-        {photos?.map((p) => (
+        {photos?.map((p, i) => (
           <ImageCard
             id={p._id}
-            key={p._id}
+            key={i}
             src={p.img}
             desc={p.desc}
             comments={p.comments}
             timeStamp={p.createdAt}
+            onSubmitComment={onSubmitComment}
           />
         ))}
       </Wrapper>

@@ -76,11 +76,31 @@ const Id = styled.span`
 
 const CDesc = styled.span``;
 
-export default function ImageCard({ id, src, desc, comments, timeStamp }) {
+const LoadingBox = styled.div`
+  z-index: 100;
+  position: fixed;
+  top: 5vh;
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+`;
+
+export default function ImageCard({
+  id,
+  src,
+  desc,
+  comments,
+  timeStamp,
+  onSubmitComment,
+}) {
   const [toggle, setToggle] = useState(false);
   const [username, setUsername] = useState();
   const [comment, setComment] = useState();
-
+  const [isLoading, setIsLoading] = useState(false);
   const timeStampToDate = (time) => {
     const splitedTime = time.split("-");
     const yearAndMonth = `${splitedTime[0]}年 ${splitedTime[1]}月`;
@@ -88,17 +108,17 @@ export default function ImageCard({ id, src, desc, comments, timeStamp }) {
     return `${yearAndMonth} ${day}日`;
   };
 
-  const onClickToCommentSubmit = () => {
-    publicRequest
-      .put(`photo/addcomment/${id}`, {
-        username,
-        comment,
-      })
-      .then(() => window.location.reload());
+  const onClickToCommentSubmit = async () => {
+    setIsLoading(true);
+    await onSubmitComment(id, username, comment);
+    setUsername("");
+    setComment("");
+    setIsLoading(false);
   };
 
   return (
     <Container>
+      {isLoading && <LoadingBox>loading...</LoadingBox>}
       <Top>{timeStampToDate(timeStamp)}</Top>
       <Img src={src} />
       <Content>
@@ -117,8 +137,8 @@ export default function ImageCard({ id, src, desc, comments, timeStamp }) {
         ) : (
           <CommentWrapper>
             <CommentsContainer>
-              {comments?.map((c) => (
-                <Comment key={c.id}>
+              {comments?.map((c, i) => (
+                <Comment key={i}>
                   <Id>{c.username}</Id>
                   <CDesc>{c.comment}</CDesc>
                 </Comment>
@@ -130,6 +150,7 @@ export default function ImageCard({ id, src, desc, comments, timeStamp }) {
                 style={{ flex: "3" }}
                 size="small"
                 variant="outlined"
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <TextField
@@ -137,6 +158,7 @@ export default function ImageCard({ id, src, desc, comments, timeStamp }) {
                 style={{ flex: "6" }}
                 size="small"
                 variant="outlined"
+                value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
               <Create style={{ flex: "1" }} onClick={onClickToCommentSubmit} />

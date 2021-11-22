@@ -7,6 +7,8 @@ import FreeCommentDetail from "./Pages/FreeCommentDetail";
 import Login from "./Pages/Login";
 import GalleryUpload from "./Pages/GalleryUpload";
 import FreeCommentUpload from "./Pages/FreeCommentUpload";
+import Chat from "./Pages/Chat";
+import ChatroomDetail from "./Pages/ChatroomDetail";
 
 export default function App() {
   return (
@@ -33,6 +35,12 @@ export default function App() {
           </Route>
           <Route path="/upload/freecomment" exact>
             <FreeCommentUpload />
+          </Route>
+          <Route path="/chat" exact>
+            <Chat />
+          </Route>
+          <Route path="/chat/:id" exact>
+            <ChatroomDetail />
           </Route>
         </Switch>
       </Router>

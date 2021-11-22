@@ -88,6 +88,7 @@ export default function Menulist({ open, setOpen }) {
             <Content onClick={() => onClickPushTo("/freecomment")}>
               Free Comment
             </Content>
+            <Content onClick={() => onClickPushTo("/chat")}>Lets Talk</Content>
           </>
         ) : (
           <>
@@ -96,6 +97,7 @@ export default function Menulist({ open, setOpen }) {
             <Content onClick={() => onClickPushTo("/freecomment")}>
               Free Comment
             </Content>
+            <Content onClick={() => onClickPushTo("/chat")}>Lets Talk</Content>
           </>
         )}
       </Main>
