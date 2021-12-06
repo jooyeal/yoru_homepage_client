@@ -61,6 +61,8 @@ export default function ChatBox({ sender, conversation }) {
   const thisConversation = conversation?.filter((c) => c._id === id);
 
   const onSubmitChat = async () => {
+    setText("");
+
     const params = { conversationId: id, sender: sender, text };
 
     const receiverId = thisConversation[0].members.find(
@@ -75,7 +77,6 @@ export default function ChatBox({ sender, conversation }) {
 
     const res = await publicRequest.post("/message", params);
     setMessages([...messages, res.data]);
-    setText("");
   };
 
   useEffect(() => {
