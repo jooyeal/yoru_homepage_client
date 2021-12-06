@@ -93,6 +93,7 @@ export default function ChatBox({ sender, conversation }) {
     arrivalMessage &&
       thisConversation[0].members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
+    console.log(messages);
   }, [arrivalMessage]);
 
   useEffect(() => {
