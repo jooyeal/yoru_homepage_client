@@ -56,7 +56,7 @@ export default function ChatBox({ sender, conversation }) {
   const { id } = useParams();
   const [text, setText] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const socket = useRef(io("ws://localhost:8900"));
+  const socket = useRef(io("ws://yoru-home.herokuapp.com/"));
   const scrollRef = useRef();
   const thisConversation = conversation?.filter((c) => c._id === id);
 
@@ -79,7 +79,7 @@ export default function ChatBox({ sender, conversation }) {
   };
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://yoru-home.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
