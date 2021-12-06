@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import Home from "./Pages/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Gallery from "./Pages/Gallery";
@@ -10,9 +11,17 @@ import FreeCommentUpload from "./Pages/FreeCommentUpload";
 import Chat from "./Pages/Chat";
 import ChatroomDetail from "./Pages/ChatroomDetail";
 
+
+const Mobile = styled.div`
+  width: 375px;
+`;
+
 export default function App() {
+  const [width, setWidth] = useState(null);
+  useEffect(() => {
+    window.innerWidth > 768 && setWidth("375");
+  }, []);
   return (
-    <div>
       <Router>
         <Switch>
           <Route path="/" exact>
@@ -44,6 +53,5 @@ export default function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
   );
 }

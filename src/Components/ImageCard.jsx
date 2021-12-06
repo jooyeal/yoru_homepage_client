@@ -9,12 +9,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { photoData } from "../data";
 import { publicRequest } from "../requestApi";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
   margin-bottom: 24px;
   box-sizing: border-box;
   padding-bottom: 18px;
+  ${mobile({ width: "50vw" })}
 `;
 
 const Top = styled.div`

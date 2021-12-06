@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { profileImage } from "../data";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   margin-top: 18px;
@@ -11,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  ${mobile({ flexDirection: "row", marginTop: "78px" })}
 `;
 
 const Picture = styled.div`
@@ -29,6 +31,7 @@ const Comment = styled.div`
   font-size: 22px;
   font-weight: 500;
   padding: 0 10px;
+  ${mobile({ width: "50vw" })}
 `;
 
 export default function Introduce() {

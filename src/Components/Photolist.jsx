@@ -2,12 +2,14 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { photoData } from "../data";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
   display: flex;
   overflow: hidden;
   position: relative;
+  ${mobile({ width: "50vw" })}
 `;
 
 const Wrapper = styled.div`
