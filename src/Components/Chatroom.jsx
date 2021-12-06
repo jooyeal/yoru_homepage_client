@@ -52,7 +52,9 @@ export default function Chatroom() {
         };
         const res = await publicRequest.post("/conversation", params);
         localStorage.setItem("nickname", nickname);
+        console.log("test", res.data);
         setError(false);
+        history.push(`/chat/${res.data._id}`)
       }
     }
   };
