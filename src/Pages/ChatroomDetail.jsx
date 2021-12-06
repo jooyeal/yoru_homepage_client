@@ -13,17 +13,22 @@ const Container = styled.div``;
 const Wrapper = styled.div``;
 
 export default function ChatroomDetail() {
-  // const [messages, setMessages] = useState([]);
+  const [conversation, setConversation] = useState([]);
   const { id } = useParams();
   const userId = useSelector((state) => state.user?.currentUser?.other?._id);
 
-  // useEffect(() => {
-  //   const getMessages = async () => {
-  //     const res = await publicRequest.get(`message/${id}`);
-  //     setMessages(res.data);
-  //   };
-  //   getMessages();
-  // }, []);
+  useEffect(() => {
+    const getConversation = async () => {
+      const res = await publicRequest.get(
+        `conversation/${userId ?? localStorage.getItem("nickname")}`
+      );
+      setConversation(res.data);
+    };
+
+    getConversation();
+  }, []);
+
+  console.log(conversation);
 
   return (
     <Container>
@@ -31,6 +36,7 @@ export default function ChatroomDetail() {
       <Baseline />
       <ChatBox
         // messages={messages}
+        conversation={conversation}
         userId={userId}
         sender={userId ?? localStorage.getItem("nickname")}
       />

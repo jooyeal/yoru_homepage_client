@@ -4,6 +4,7 @@ import { IconButton, TextField } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useParams } from "react-router";
 import { publicRequest } from "../requestApi";
+import { io } from "socket.io-client";
 
 const Container = styled.div``;
 
@@ -50,18 +51,56 @@ const Name = styled.div`
 
 const Text = styled.div``;
 
-export default function ChatBox({ sender }) {
+export default function ChatBox({ sender, conversation }) {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const [text, setText] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const socket = useRef(io("ws://localhost:8900"));
   const scrollRef = useRef();
+  const thisConversation = conversation?.filter((c) => c._id === id);
 
   const onSubmitChat = async () => {
     const params = { conversationId: id, sender: sender, text };
+
+    const receiverId = thisConversation[0].members.find(
+      (member) => member !== sender
+    );
+
+    socket.current.emit("sendMessage", {
+      senderId: sender,
+      receiverId,
+      text,
+    });
+
     const res = await publicRequest.post("/message", params);
     setMessages([...messages, res.data]);
     setText("");
   };
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      thisConversation[0].members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  useEffect(() => {
+    socket.current?.emit("addUser", sender);
+    socket.current?.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, []);
 
   useEffect(() => {
     const getMessages = async () => {
