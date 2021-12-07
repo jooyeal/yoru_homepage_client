@@ -105,11 +105,7 @@ const CommentForm = styled.div`
 `;
 
 export default function FreeCommentDetailBoard() {
-  const {
-    currentUser: {
-      other: { isAdmin },
-    },
-  } = useSelector((state) => state.user);
+  const isAdmin = useSelector(state=>state.user?.currentUser?.other.isAdmin)
   const { id: paramId } = useParams();
   const history = useHistory();
   const [post, setPost] = useState();
