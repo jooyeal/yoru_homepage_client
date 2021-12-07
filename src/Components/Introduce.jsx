@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { profileImage } from "../data";
-import { mobile } from "../responsive";
+import { mobile, colorMode } from "../responsive";
 
 const Container = styled.div`
   margin-top: 18px;
@@ -13,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-around;
   ${mobile({ flexDirection: "row", marginTop: "78px" })}
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Picture = styled.div`
@@ -34,9 +35,9 @@ const Comment = styled.div`
   ${mobile({ width: "50vw" })}
 `;
 
-export default function Introduce() {
+export default function Introduce({ mode }) {
   return (
-    <Container>
+    <Container mode={mode}>
       <Picture>
         <Img src={profileImage.src} />
       </Picture>

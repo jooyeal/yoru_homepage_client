@@ -9,7 +9,6 @@ const Container = styled.div`
   display: flex;
   overflow: hidden;
   position: relative;
-  ${mobile({ width: "50vw" })}
 `;
 
 const Wrapper = styled.div`
@@ -28,6 +27,7 @@ const Slide = styled.div`
 const Img = styled.img`
   width: 100vw;
   object-fit: cover;
+  ${mobile({ objectFit: "none" })}
 `;
 
 const Left = styled.div`
@@ -81,9 +81,9 @@ export default function Photolist() {
   }, []);
   return (
     <Container>
-      <Left onClick={onClickArrow}>
+      {/* <Left onClick={onClickArrow}>
         <ArrowLeftOutlined fontSize="large" />
-      </Left>
+      </Left> */}
       <Wrapper slideIndex={slideIndex}>
         {photoData.map((p) => (
           <Slide key={p.id}>
@@ -91,9 +91,9 @@ export default function Photolist() {
           </Slide>
         ))}
       </Wrapper>
-      <Right onClick={() => onClickArrow("right")}>
+      {/* <Right onClick={() => onClickArrow("right")}>
         <ArrowRightOutlined fontSize="large" />
-      </Right>
+      </Right> */}
     </Container>
   );
 }

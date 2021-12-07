@@ -7,14 +7,19 @@ import { AddBox } from "@mui/icons-material";
 import { useHistory } from "react-router";
 import { publicRequest } from "../requestApi";
 import { useSelector } from "react-redux";
+import { colorMode } from "../responsive";
+import Loading from "../Components/Loading";
 
-const Container = styled.div``;
+const Container = styled.div`
+  ${({ mode }) => colorMode(mode)}
+`;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 6rem;
+  /* margin-bottom: 6rem; */
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const FooterNavbar = styled.div`
@@ -26,6 +31,7 @@ const FooterNavbar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const LoadingBox = styled.div`
@@ -38,6 +44,7 @@ const LoadingBox = styled.div`
   align-items: center;
   background-color: black;
   color: white;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 export default function Gallery() {
@@ -45,6 +52,8 @@ export default function Gallery() {
   const [photos, setPhotos] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
+  const mode = useSelector((state) => state.mode.colorMode);
+
   useEffect(() => {
     const getPhotos = async () => {
       const res = await publicRequest.get("photo/all");
@@ -67,10 +76,15 @@ export default function Gallery() {
     <Container>
       <Navbar />
       <Baseline />
-      <Wrapper>
-        {isLoading && <LoadingBox>loading...</LoadingBox>}
+      <Wrapper mode={mode}>
+        {isLoading && (
+          <LoadingBox mode={mode}>
+            <Loading />
+          </LoadingBox>
+        )}
         {photos?.map((p, i) => (
           <ImageCard
+            mode={mode}
             id={p._id}
             key={i}
             src={p.img}
@@ -81,7 +95,7 @@ export default function Gallery() {
           />
         ))}
       </Wrapper>
-      <FooterNavbar>
+      <FooterNavbar mode={mode}>
         {currentUser && (
           <AddBox
             style={{ fontSize: "48px" }}
