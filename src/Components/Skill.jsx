@@ -8,6 +8,7 @@ import {
   faPython,
 } from "@fortawesome/free-brands-svg-icons";
 import { skillComment } from "../data";
+import { colorMode } from "../responsive";
 
 const Container = styled.div`
   margin-top: 18px;
@@ -18,6 +19,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Top = styled.div`
@@ -48,10 +50,11 @@ const Circle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
+  /* background-color: #000; */
+  ${({ mode }) => colorMode(!mode)}
 `;
 
-export default function Skill() {
+export default function Skill({ mode }) {
   const [selected, setSelected] = useState(0);
 
   const onClick = (type) => {
@@ -64,11 +67,12 @@ export default function Skill() {
     }
   };
   return (
-    <Container>
+    <Container mode={mode}>
       <Top>My Skilltech</Top>
       <Main>{skillComment[selected].desc}</Main>
       <Footer>
         <Circle
+          mode={mode}
           selected={selected === 0 ? true : false}
           onClick={() => onClick("react")}
         >
@@ -79,6 +83,7 @@ export default function Skill() {
           />
         </Circle>
         <Circle
+          mode={mode}
           selected={selected === 1 ? true : false}
           onClick={() => onClick("node")}
         >
@@ -89,6 +94,7 @@ export default function Skill() {
           />
         </Circle>
         <Circle
+          mode={mode}
           selected={selected === 2 ? true : false}
           onClick={() => onClick("js")}
         >

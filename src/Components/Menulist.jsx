@@ -2,6 +2,7 @@ import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { colorMode } from "../responsive";
 
 const Container = styled.div`
   position: absolute;
@@ -9,6 +10,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: #fff;
   z-index: 100;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Top = styled.div`
@@ -34,7 +36,7 @@ const Content = styled.div`
   font-weight: 600;
 `;
 
-export default function Menulist({ open, setOpen }) {
+export default function Menulist({ mode, open, setOpen }) {
   const history = useHistory();
   const {
     location: { pathname },
@@ -66,7 +68,7 @@ export default function Menulist({ open, setOpen }) {
   };
 
   return open ? (
-    <Container>
+    <Container mode={mode}>
       <Top>
         <Close
           style={{ marginLeft: "12px" }}

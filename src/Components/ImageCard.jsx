@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { photoData } from "../data";
 import { publicRequest } from "../requestApi";
-import { mobile } from "../responsive";
+import { mobile, colorMode } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -17,6 +17,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding-bottom: 18px;
   ${mobile({ width: "50vw" })}
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Top = styled.div`
@@ -92,6 +93,7 @@ const LoadingBox = styled.div`
 `;
 
 export default function ImageCard({
+  mode,
   id,
   src,
   desc,
@@ -119,7 +121,7 @@ export default function ImageCard({
   };
 
   return (
-    <Container>
+    <Container mode={mode}>
       {isLoading && <LoadingBox>loading...</LoadingBox>}
       <Top>{timeStampToDate(timeStamp)}</Top>
       <Img src={src} />

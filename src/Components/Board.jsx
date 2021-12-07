@@ -3,8 +3,12 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { AddBox } from "@mui/icons-material";
 import { publicRequest } from "../requestApi";
+import { colorMode } from "../responsive";
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 90vh;
+  ${({ mode }) => colorMode(mode)}
+`;
 
 const Top = styled.div`
   display: flex;
@@ -17,6 +21,7 @@ const Top = styled.div`
   border-bottom: 0.5px solid #c5c5c5;
   font-size: 24px;
   font-weight: bold;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Id = styled.div`
@@ -51,6 +56,7 @@ const User = styled.div`
 
 const Main = styled.div`
   margin-top: 5rem;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Post = styled.div`
@@ -66,12 +72,13 @@ const Post = styled.div`
 const FooterNavbar = styled.div`
   width: 100vw;
   height: 5rem;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Nothing = styled.div`
@@ -82,9 +89,10 @@ const Nothing = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: 28px;
+  ${({ mode }) => colorMode(mode)}
 `;
 
-export default function Board() {
+export default function Board({ mode }) {
   const [posts, setPosts] = useState([]);
   const history = useHistory();
 
@@ -100,14 +108,14 @@ export default function Board() {
     getPost();
   }, []);
   return (
-    <Container>
-      <Top>
+    <Container mode={mode}>
+      <Top mode={mode}>
         <Id>NO</Id>
         <Title type="bar">TITLE</Title>
         <User type="bar">USER</User>
       </Top>
       {posts.length !== 0 ? (
-        <Main>
+        <Main mode={mode}>
           {posts.map((p, i) => (
             <Post key={p._id} onClick={() => onClickToDetail(p._id)}>
               <Id>{i + 1}</Id>
@@ -119,7 +127,7 @@ export default function Board() {
       ) : (
         <Nothing>Post does not exist</Nothing>
       )}
-      <FooterNavbar>
+      <FooterNavbar mode={mode}>
         <AddBox
           style={{ fontSize: "48px" }}
           onClick={() => history.push("/upload/freecomment")}

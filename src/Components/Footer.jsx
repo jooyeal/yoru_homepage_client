@@ -2,16 +2,17 @@ import { Mail, Phone } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 import { Instagram, GitHub } from "@mui/icons-material";
+import { colorMode } from "../responsive";
 
 const Container = styled.div`
   margin-top: 18px;
-  background-color: #e8eaf6;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Top = styled.div`
@@ -38,14 +39,14 @@ const Desc = styled.div`
   font-weight: bold;
 `;
 
-export default function Footer() {
+export default function Footer({ mode }) {
   return (
-    <Container>
+    <Container mode={mode}>
       <Top>Contact</Top>
       <Main>
         <Content>
           <Mail style={{ flex: 2, fontSize: "48px" }} />
-          <Desc>jyol234@gmail.com</Desc>
+          <Desc>jyol1234@gmail.com</Desc>
         </Content>
         <Content>
           <Phone style={{ flex: 2, fontSize: "48px" }} />
