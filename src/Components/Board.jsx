@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { AddBox } from "@mui/icons-material";
 import { publicRequest } from "../requestApi";
 import { colorMode } from "../responsive";
+import Loading from "./Loading";
 
 const Container = styled.div`
   min-height: 90vh;
@@ -125,7 +126,9 @@ export default function Board({ mode }) {
           ))}
         </Main>
       ) : (
-        <Nothing>Post does not exist</Nothing>
+        <Nothing mode={mode}>
+          <Loading />
+        </Nothing>
       )}
       <FooterNavbar mode={mode}>
         <AddBox

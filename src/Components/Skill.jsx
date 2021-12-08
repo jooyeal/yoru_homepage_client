@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { skillComment } from "../data";
 import { colorMode } from "../responsive";
+import Typist from "react-typist";
 
 const Container = styled.div`
   margin-top: 18px;
@@ -18,16 +19,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   ${({ mode }) => colorMode(mode)}
 `;
 
 const Top = styled.div`
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 48px;
+  font-weight: bold;
+  height: 30vh;
 `;
 
-const Main = styled.div``;
+const Main = styled.div`
+  font-size: 22px;
+  font-weight: 500;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+`;
 
 const Footer = styled.div`
   display: flex;
@@ -68,8 +76,18 @@ export default function Skill({ mode }) {
   };
   return (
     <Container mode={mode}>
-      <Top>My Skilltech</Top>
-      <Main>{skillComment[selected].desc}</Main>
+      <Top>SKILLTECH</Top>
+      <Main>
+        {selected === 0 && (
+          <Typist avgTypingDelay={10}>{skillComment[0].desc}</Typist>
+        )}
+        {selected === 1 && (
+          <Typist avgTypingDelay={10}>{skillComment[1].desc}</Typist>
+        )}
+        {selected === 2 && (
+          <Typist avgTypingDelay={10}>{skillComment[2].desc}</Typist>
+        )}
+      </Main>
       <Footer>
         <Circle
           mode={mode}

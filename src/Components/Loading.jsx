@@ -8,8 +8,8 @@ export default function Loading() {
     <ReactLoading
       type="bubbles"
       color={mode ? "#212121" : "#fafafa"}
-      height="40%"
-      width="40%"
+      height="25%"
+      width="25%"
     />
   );
 }
