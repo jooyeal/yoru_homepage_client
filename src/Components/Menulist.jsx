@@ -101,7 +101,7 @@ export default function Menulist({ mode, open, setOpen }) {
           Free Comment
         </Content>
         <Content onClick={() => onClickPushTo("/chat")}>Lets Talk</Content>
-        <Content onClick={() => onClickPushTo("/login")}>Admin</Content>
+        {/* <Content onClick={() => onClickPushTo("/login")}>Admin</Content> */}
         {/* </>
         )} */}
       </Main>
