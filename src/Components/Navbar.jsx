@@ -59,7 +59,7 @@ export default function Navbar() {
     dispatch(setColorMode());
     setAnchorEl(null);
   };
-
+  
   const onClickLang = (lang) => {
     dispatch(setLangMode(lang));
     setAnchorEl(null);
@@ -77,7 +77,7 @@ export default function Navbar() {
         </div>
         <MenuComp anchorEl={anchorEl} open={moreOpen} onClose={onCloseMore}>
           <MenuItem onClick={() => onClickColorMode()}>
-            {mode ? (
+            {!mode ? (
               <DarkMode fontSize="large" />
             ) : (
               <LightMode fontSize="large" />
