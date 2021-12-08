@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-bottom: 6rem; */
+  padding-bottom: 6rem;
   ${({ mode }) => colorMode(mode)}
 `;
 

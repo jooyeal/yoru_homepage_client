@@ -42,11 +42,9 @@ export default function Introduce({ mode }) {
         <Img src={profileImage.src} />
       </Picture>
       <Comment>
-        <p style={{ lineHeight: "2.5rem" }}>
-          Hello, My name is <b>Cha Juyeol</b>. I'm from South Korea and now
-          living in Japan. I had been majored computer engineering and now
-          working as a developer. I hope you to be interested in me. thank you.
-        </p>
+        Hello, My name is <b>Cha Juyeol</b>. I'm from South Korea and now living
+        in Japan. I majored in computer science and am now working as a web
+        developer. If you are interested in me, please to contact me
       </Comment>
     </Container>
   );

@@ -77,7 +77,7 @@ export default function Menulist({ mode, open, setOpen }) {
         />
       </Top>
       <Main>
-        {pathname === "/" ? (
+        {/* {pathname === "/" ? (
           <>
             <Content onClick={() => onClickContent("top")}>Top</Content>
             <Content onClick={() => onClickContent("introduce")}>
@@ -94,16 +94,16 @@ export default function Menulist({ mode, open, setOpen }) {
             <Content onClick={() => onClickPushTo("/login")}>Admin</Content>
           </>
         ) : (
-          <>
-            <Content onClick={() => onClickPushTo("/")}>Home</Content>
-            <Content onClick={() => onClickPushTo("/gallery")}>Gallery</Content>
-            <Content onClick={() => onClickPushTo("/freecomment")}>
-              Free Comment
-            </Content>
-            <Content onClick={() => onClickPushTo("/chat")}>Lets Talk</Content>
-            <Content onClick={() => onClickPushTo("/login")}>Admin</Content>
-          </>
-        )}
+          <> */}
+        <Content onClick={() => onClickPushTo("/")}>Home</Content>
+        <Content onClick={() => onClickPushTo("/gallery")}>Gallery</Content>
+        <Content onClick={() => onClickPushTo("/freecomment")}>
+          Free Comment
+        </Content>
+        <Content onClick={() => onClickPushTo("/chat")}>Lets Talk</Content>
+        <Content onClick={() => onClickPushTo("/login")}>Admin</Content>
+        {/* </>
+        )} */}
       </Main>
     </Container>
   ) : null;

@@ -4,8 +4,14 @@ export const profileImage = {
 };
 
 export const skillComment = [
-  { id: 1, desc: "react" },
-  { id: 2, desc: "node" },
+  {
+    id: 1,
+    desc: "My React experience is 2years. Basically, I like to use React for frontend development. ",
+  },
+  {
+    id: 2,
+    desc: "I first started programming in Java but, I prefer to use the JavaScript. So, I usually use Node for backend development.",
+  },
   { id: 3, desc: "javascript" },
 ];
 
