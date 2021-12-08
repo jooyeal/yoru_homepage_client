@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useRef } from "react";
 import styled from "styled-components";
 import Baseline from "../Components/Baseline";
 import Footer from "../Components/Footer";
@@ -24,6 +24,15 @@ import Typist from "react-typist";
 import ReactRotatingText from "react-rotating-text";
 import { mobile, colorMode } from "../responsive";
 import { useSelector } from "react-redux";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  PerspectiveCamera,
+  OrbitControls,
+  TorusKnot,
+  Sphere,
+  Plane,
+} from "@react-three/drei";
+import Loading from "../Components/Loading";
 
 const Container = styled.div`
   ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
@@ -42,6 +51,20 @@ const Wrapper = styled.div`
   ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
 `;
 
+const Mesh = () => {
+  const torusRef = useRef();
+  useFrame(({ clock }) => {
+    const elapsedTime = clock.getElapsedTime();
+    torusRef.current.rotation.y = elapsedTime / 4;
+  });
+
+  return (
+    <TorusKnot ref={torusRef}>
+      <meshBasicMaterial color="hotpink" />
+    </TorusKnot>
+  );
+};
+
 export default function Home() {
   const mode = useSelector((state) => state.mode.colorMode);
 
@@ -49,6 +72,19 @@ export default function Home() {
     <Container mode={mode}>
       <Navbar />
       <Baseline />
+
+      <Suspense fallback={<Loading />}>
+        <Canvas
+          style={{
+            zIndex: 50,
+            opacity: 0.3,
+            position: "fixed",
+            width: "100vw",
+          }}
+        >
+          <Mesh />
+        </Canvas>
+      </Suspense>
       <ScrollContainer>
         <ScrollPage page={0}>
           <Wrapper>
