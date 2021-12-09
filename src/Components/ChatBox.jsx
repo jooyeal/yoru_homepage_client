@@ -5,14 +5,18 @@ import { Send } from "@mui/icons-material";
 import { useParams } from "react-router";
 import { publicRequest } from "../requestApi";
 import { io } from "socket.io-client";
+import { colorMode } from "../responsive";
 
-const Container = styled.div``;
+const Container = styled.div`
+  ${({ mode }) => colorMode(mode)}
+`;
 
 const Wrapper = styled.div`
   height: 89vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const MessageBox = styled.div`
@@ -21,6 +25,7 @@ const MessageBox = styled.div`
   flex-direction: column;
   gap: 24px;
   overflow: auto;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const ChatField = styled.div`
@@ -29,6 +34,7 @@ const ChatField = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const SendMessage = styled.div`
@@ -36,6 +42,7 @@ const SendMessage = styled.div`
   display: flex;
   gap: 15px;
   justify-content: flex-end;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const ReceiveMessage = styled.div`
@@ -43,6 +50,7 @@ const ReceiveMessage = styled.div`
   display: flex;
   gap: 15px;
   justify-content: flex-start;
+  ${({ mode }) => colorMode(mode)}
 `;
 
 const Name = styled.div`
@@ -51,7 +59,7 @@ const Name = styled.div`
 
 const Text = styled.div``;
 
-export default function ChatBox({ sender, conversation }) {
+export default function ChatBox({ mode, sender, conversation }) {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const [text, setText] = useState("");
@@ -117,18 +125,18 @@ export default function ChatBox({ sender, conversation }) {
   }, [messages]);
 
   return (
-    <Container>
-      <Wrapper>
-        <MessageBox>
+    <Container mode={mode}>
+      <Wrapper mode={mode}>
+        <MessageBox mode={mode}>
           {messages?.map((m, i) => (
             <div ref={scrollRef}>
               {m.sender === sender ? (
-                <SendMessage key={i}>
+                <SendMessage key={i} mode={mode}>
                   <Text>{m.text}</Text>
                   <Name>{m.sender}</Name>
                 </SendMessage>
               ) : (
-                <ReceiveMessage key={i}>
+                <ReceiveMessage key={i} mode={mode}>
                   <Name>{m.sender}</Name>
                   <Text>{m.text}</Text>
                 </ReceiveMessage>
@@ -136,15 +144,13 @@ export default function ChatBox({ sender, conversation }) {
             </div>
           ))}
         </MessageBox>
-        <ChatField>
+        <ChatField mode={mode}>
           <TextField
-            style={{ width: "80vw" }}
+            style={{ width: "80vw", backgroundColor: "#f5f5f5" }}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <IconButton size="large" onClick={onSubmitChat}>
-            <Send />
-          </IconButton>
+          <Send size="large" onClick={onSubmitChat} />
         </ChatField>
       </Wrapper>
     </Container>

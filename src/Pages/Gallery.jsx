@@ -69,8 +69,8 @@ export default function Gallery() {
       username,
       comment,
     });
-    const res = await publicRequest.get("photo/all");
-    setPhotos(res.data);
+    // const res = await publicRequest.get("photo/all");
+    // setPhotos(res.data);
   };
   return (
     <Container>
