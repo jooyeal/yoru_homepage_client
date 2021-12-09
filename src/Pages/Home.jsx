@@ -62,7 +62,7 @@ const Mesh = ({ mode }) => {
 
   return (
     <TorusKnot ref={torusRef}>
-      <meshBasicMaterial color={mode ? "#03A9F4" : "hotpink"} />
+      <meshBasicMaterial color={!mode ? "#03A9F4" : "hotpink"} />
     </TorusKnot>
   );
 };
