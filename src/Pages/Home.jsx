@@ -31,6 +31,8 @@ import {
   TorusKnot,
   Sphere,
   Plane,
+  Box,
+  Stars,
 } from "@react-three/drei";
 import Loading from "../Components/Loading";
 
@@ -65,6 +67,27 @@ const Mesh = () => {
   );
 };
 
+const StarsMesh = () => {
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    const elapsedTime = clock.getElapsedTime();
+    ref.current.rotation.x = elapsedTime / 30;
+    ref.current.rotation.y = elapsedTime / 30;
+  });
+
+  return (
+    <Stars
+      ref={ref}
+      radius={300}
+      depth={100}
+      count={5000}
+      factor={7}
+      saturation={0}
+      fade={false}
+    />
+  );
+};
+
 export default function Home() {
   const mode = useSelector((state) => state.mode.colorMode);
 
@@ -72,23 +95,22 @@ export default function Home() {
     <Container mode={mode}>
       <Navbar />
       <Baseline />
-
-      <Suspense fallback={<Loading />}>
-        <Canvas
-          style={{
-            zIndex: 50,
-            opacity: 0.3,
-            position: "fixed",
-            width: "100vw",
-          }}
-        >
-          <Mesh />
-        </Canvas>
-      </Suspense>
       <ScrollContainer>
         <ScrollPage page={0}>
           <Wrapper>
             <Animator animation={batch(Fade())}>
+              <Suspense fallback={<Loading />}>
+                <Canvas
+                  style={{
+                    zIndex: 1,
+                    opacity: 0.3,
+                    position: "absolute",
+                    width: "100vw",
+                  }}
+                >
+                  <Mesh />
+                </Canvas>
+              </Suspense>
               <Top>
                 <Typist
                   avgTypingDelay={50}
@@ -129,6 +151,25 @@ export default function Home() {
           </Wrapper>
         </ScrollPage>
         <ScrollPage page={2}>
+          <Suspense fallback={<Loading />}>
+            <Canvas
+              style={{
+                zIndex: 1,
+                opacity: 0.8,
+                position: "absolute",
+                width: "100vw",
+              }}
+              camera={{ position: [0, 10, 0] }}
+            >
+              <ambientLight />
+              <pointLight
+                color="#f6f3ea"
+                position={[0, 0, 0]}
+                intensity={1.2}
+              />
+              <StarsMesh />
+            </Canvas>
+          </Suspense>
           <Animator animation={batch(FadeIn(), Move(0, -200))}>
             <Introduce mode={mode} />
           </Animator>
