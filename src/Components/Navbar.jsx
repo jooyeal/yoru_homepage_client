@@ -26,7 +26,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   filter: ${({ mode }) =>
-    mode
+    !mode
       ? "invert(0%) sepia(34%) saturate(796%) hue-rotate(9deg) brightness(92%) contrast(104%)"
       : "invert(100%) sepia(1%) saturate(1608%) hue-rotate(327deg) brightness(112%) contrast(92%)"};
 `;
