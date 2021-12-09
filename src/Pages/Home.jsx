@@ -53,7 +53,7 @@ const Wrapper = styled.div`
   ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
 `;
 
-const Mesh = () => {
+const Mesh = ({ mode }) => {
   const torusRef = useRef();
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime();
@@ -62,7 +62,7 @@ const Mesh = () => {
 
   return (
     <TorusKnot ref={torusRef}>
-      <meshBasicMaterial color="hotpink" />
+      <meshBasicMaterial color={mode ? "#03A9F4" : "hotpink"} />
     </TorusKnot>
   );
 };
@@ -108,7 +108,7 @@ export default function Home() {
                     width: "100vw",
                   }}
                 >
-                  <Mesh />
+                  <Mesh mode={mode} />
                 </Canvas>
               </Suspense>
               <Top>
