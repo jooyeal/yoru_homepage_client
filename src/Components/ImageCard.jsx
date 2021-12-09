@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { photoData } from "../data";
 import { publicRequest } from "../requestApi";
 import { mobile, colorMode } from "../responsive";
+import Loading from "./Loading";
 
 const Container = styled.div`
   width: 100vw;
@@ -105,16 +106,18 @@ export default function ImageCard({
   const [username, setUsername] = useState();
   const [comment, setComment] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [commentsState, setCommentsState] = useState(comments);
   const timeStampToDate = (time) => {
     const splitedTime = time.split("-");
-    const yearAndMonth = `${splitedTime[0]}年 ${splitedTime[1]}月`;
+    const yearAndMonth = `${splitedTime[0]} ${splitedTime[1]}`;
     const day = splitedTime[2].substring(0, 2);
-    return `${yearAndMonth} ${day}日`;
+    return `${yearAndMonth} ${day}`;
   };
 
   const onClickToCommentSubmit = async () => {
     setIsLoading(true);
     await onSubmitComment(id, username, comment);
+    setCommentsState((prev) => [...prev, { username, comment }]);
     setUsername("");
     setComment("");
     setIsLoading(false);
@@ -122,18 +125,22 @@ export default function ImageCard({
 
   return (
     <Container mode={mode}>
-      {isLoading && <LoadingBox>loading...</LoadingBox>}
+      {isLoading && (
+        <LoadingBox>
+          <Loading />
+        </LoadingBox>
+      )}
       <Top>{timeStampToDate(timeStamp)}</Top>
       <Img src={src} />
       <Content>
         <Attr>
           <Article
             onClick={() => setToggle(false)}
-            style={{ fontSize: "48px" }}
+            style={{ fontSize: "32px" }}
           />
           <CommentOutlined
             onClick={() => setToggle(true)}
-            style={{ fontSize: "48px" }}
+            style={{ fontSize: "32px" }}
           />
         </Attr>
         {!toggle ? (
@@ -141,7 +148,7 @@ export default function ImageCard({
         ) : (
           <CommentWrapper>
             <CommentsContainer>
-              {comments?.map((c, i) => (
+              {commentsState?.map((c, i) => (
                 <Comment key={i}>
                   <Id>{c.username}</Id>
                   <CDesc>{c.comment}</CDesc>
@@ -151,7 +158,7 @@ export default function ImageCard({
             <AddComment>
               <TextField
                 placeholder="your name"
-                style={{ flex: "3" }}
+                style={{ flex: "3", backgroundColor: "#f5f5f5" }}
                 size="small"
                 variant="outlined"
                 value={username}
@@ -159,7 +166,7 @@ export default function ImageCard({
               />
               <TextField
                 placeholder="comment..."
-                style={{ flex: "6" }}
+                style={{ flex: "6", backgroundColor: "#f5f5f5" }}
                 size="small"
                 variant="outlined"
                 value={comment}

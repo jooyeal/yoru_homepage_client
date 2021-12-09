@@ -5,14 +5,33 @@ import { useSelector } from "react-redux";
 import { TextField, Button } from "@mui/material";
 import { useHistory } from "react-router";
 import { publicRequest } from "../requestApi";
+import { colorMode } from "../responsive";
 
-const Container = styled.div``;
+const Container = styled.div`
+  ${({ mode }) => colorMode(mode)}
+`;
 
-const VisitorForm = styled.div``;
+const VisitorForm = styled.div`
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  ${({ mode }) => colorMode(mode)}
+`;
 
-const EnterTheRoomContainer = styled.div``;
+const EnterTheRoomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  height: 90vh;
+  ${({ mode }) => colorMode(mode)}
+`;
 
-const EnterTheRoom = ({ history, nickname }) => {
+const EnterTheRoom = ({ mode, history, nickname }) => {
   const [conversation, setConversation] = useState();
   useEffect(() => {
     const getConversation = async () => {
@@ -22,16 +41,21 @@ const EnterTheRoom = ({ history, nickname }) => {
     getConversation();
   }, []);
   return (
-    <EnterTheRoomContainer>
-      You are already have a talk enter the existing room?
-      <Button onClick={() => history.push(`/chat/${conversation}`)}>
+    <EnterTheRoomContainer mode={mode}>
+      <h2 style={{ textAlign: "center" }}>
+        You are already have a talk enter the existing room?
+      </h2>
+      <Button
+        style={{ fontSize: "36px" }}
+        onClick={() => history.push(`/chat/${conversation}`)}
+      >
         enter
       </Button>
     </EnterTheRoomContainer>
   );
 };
 
-export default function Chatroom() {
+export default function Chatroom({ mode }) {
   const history = useHistory();
   const [nickname, setNickname] = useState("");
   const [error, setError] = useState(false);
@@ -54,30 +78,32 @@ export default function Chatroom() {
         localStorage.setItem("nickname", nickname);
         console.log("test", res.data);
         setError(false);
-        history.push(`/chat/${res.data._id}`)
+        history.push(`/chat/${res.data._id}`);
       }
     }
   };
 
   return (
-    <Container>
+    <Container mode={mode}>
       {userId ? (
-        <ConversationList id={userId} />
+        <ConversationList mode={mode} id={userId} />
       ) : localStorage.getItem("nickname") ? (
         <EnterTheRoom
+          mode={mode}
           history={history}
           nickname={localStorage.getItem("nickname")}
         />
       ) : (
-        <VisitorForm>
+        <VisitorForm mode={mode}>
           <TextField
             required
-            label="Your name"
+            style={{ backgroundColor: "#f5f5f5" }}
+            placeholder="Your name"
             variant="outlined"
             error={error}
             onChange={(e) => setNickname(e.target.value)}
           />
-          <Button variant="contained" onClick={onEnter}>
+          <Button size="large" variant="contained" onClick={onEnter}>
             ENTER
           </Button>
         </VisitorForm>

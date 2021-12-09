@@ -7,12 +7,17 @@ import ChatBox from "../Components/ChatBox";
 import { publicRequest } from "../requestApi";
 import { useSelector } from "react-redux";
 import { TextField } from "@mui/material";
+import { colorMode } from "../responsive";
 
-const Container = styled.div``;
+const Container = styled.div`
+  ${({ mode }) => colorMode(mode)}
+`;
 
 const Wrapper = styled.div``;
 
 export default function ChatroomDetail() {
+  const mode = useSelector((state) => state.mode.colorMode);
+
   const [conversation, setConversation] = useState([]);
   const { id } = useParams();
   const userId = useSelector((state) => state.user?.currentUser?.other?._id);
@@ -28,13 +33,12 @@ export default function ChatroomDetail() {
     getConversation();
   }, []);
 
-  console.log(conversation);
-
   return (
-    <Container>
+    <Container mode={mode}>
       <Navbar />
       <Baseline />
       <ChatBox
+        mode={mode}
         // messages={messages}
         conversation={conversation}
         userId={userId}
