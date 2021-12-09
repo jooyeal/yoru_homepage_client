@@ -14,12 +14,14 @@ export const colorMode = (mode) => {
       background-color: #f5f5f5;
       color: #212121;
       border-color: #212121;
+      transition: background-color 0.5s ease-in;
     `;
   } else {
     return css`
       background-color: #050505;
       color: #fafafa;
       border-color: #fafafa;
+      transition: background-color 0.5s ease-in;
     `;
   }
 };

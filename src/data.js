@@ -12,7 +12,10 @@ export const skillComment = [
     id: 2,
     desc: "I first started programming in Java but, I prefer to use the JavaScript. So, I usually use Node for backend development.",
   },
-  { id: 3, desc: "javascript" },
+  {
+    id: 3,
+    desc: "My favorite programming language is JavaScript. But in fact I can handle other programming languages like swift or python.",
+  },
 ];
 
 export const postData = [

@@ -6,6 +6,7 @@ import { colorMode } from "../responsive";
 
 const Container = styled.div`
   position: absolute;
+  margin-top: 5rem;
   width: 100%;
   height: 100vh;
   background-color: #fff;
@@ -21,6 +22,7 @@ const Top = styled.div`
 `;
 
 const Main = styled.div`
+  margin-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,13 +71,13 @@ export default function Menulist({ mode, open, setOpen }) {
 
   return open ? (
     <Container mode={mode}>
-      <Top>
+      {/* <Top>
         <Close
           style={{ marginLeft: "12px" }}
           onClick={onClickClose}
           fontSize="large"
         />
-      </Top>
+      </Top> */}
       <Main>
         {/* {pathname === "/" ? (
           <>
