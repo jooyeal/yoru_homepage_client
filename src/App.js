@@ -11,7 +11,6 @@ import FreeCommentUpload from "./Pages/FreeCommentUpload";
 import Chat from "./Pages/Chat";
 import ChatroomDetail from "./Pages/ChatroomDetail";
 
-
 const Mobile = styled.div`
   width: 375px;
 `;
@@ -22,36 +21,36 @@ export default function App() {
     window.innerWidth > 768 && setWidth("375");
   }, []);
   return (
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/gallery" exact>
-            <Gallery />
-          </Route>
-          <Route path="/freecomment" exact>
-            <FreeComment />
-          </Route>
-          <Route path="/freecomment/:id" exact>
-            <FreeCommentDetail />
-          </Route>
-          <Route path="/login" exact>
-            <Login />
-          </Route>
-          <Route path="/galleryupload" exact>
-            <GalleryUpload />
-          </Route>
-          <Route path="/upload/freecomment" exact>
-            <FreeCommentUpload />
-          </Route>
-          <Route path="/chat" exact>
-            <Chat />
-          </Route>
-          <Route path="/chat/:id" exact>
-            <ChatroomDetail />
-          </Route>
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/gallery" exact>
+          <Gallery />
+        </Route>
+        <Route path="/freecomment" exact>
+          <FreeComment />
+        </Route>
+        <Route path="/freecomment/:id" exact>
+          <FreeCommentDetail />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
+        </Route>
+        <Route path="/galleryupload" exact>
+          <GalleryUpload />
+        </Route>
+        <Route path="/upload/freecomment" exact>
+          <FreeCommentUpload />
+        </Route>
+        <Route path="/chat" exact>
+          <Chat />
+        </Route>
+        <Route path="/chat/:id" exact>
+          <ChatroomDetail />
+        </Route>
+      </Switch>
+    </Router>
   );
 }

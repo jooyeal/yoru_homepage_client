@@ -7,7 +7,7 @@ export default function Loading() {
   return (
     <ReactLoading
       type="bubbles"
-      color={mode ? "#212121" : "#fafafa"}
+      color={!mode ? "#212121" : "#fafafa"}
       height="25%"
       width="25%"
     />
