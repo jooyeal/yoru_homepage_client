@@ -102,14 +102,11 @@ export default function ChatBox({ mode, sender, conversation }) {
     arrivalMessage &&
       thisConversation[0].members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
-    console.log(messages);
   }, [arrivalMessage]);
 
   useEffect(() => {
     socket.current?.emit("addUser", sender);
-    socket.current?.on("getUsers", (users) => {
-      console.log(users);
-    });
+    socket.current?.on("getUsers", (users) => {});
   }, []);
 
   useEffect(() => {

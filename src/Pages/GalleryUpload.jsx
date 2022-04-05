@@ -113,7 +113,6 @@ export default function GalleryUpload() {
           history.push("/gallery");
         })
       );
-    console.log(res);
   };
 
   return (

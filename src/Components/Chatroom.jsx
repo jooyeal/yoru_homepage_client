@@ -66,7 +66,6 @@ export default function Chatroom({ mode }) {
       setError(true);
     } else {
       const res = await publicRequest.get(`/conversation/${nickname}`);
-      console.log(res);
       if (res.data === []) {
         setError(true);
       } else {
@@ -76,7 +75,6 @@ export default function Chatroom({ mode }) {
         };
         const res = await publicRequest.post("/conversation", params);
         localStorage.setItem("nickname", nickname);
-        console.log("test", res.data);
         setError(false);
         history.push(`/chat/${res.data._id}`);
       }

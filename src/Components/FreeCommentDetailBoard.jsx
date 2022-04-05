@@ -166,7 +166,6 @@ export default function FreeCommentDetailBoard({ mode }) {
       }
     } else {
       // TODO: error
-      console.log("error");
     }
   };
 
